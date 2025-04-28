@@ -96,8 +96,7 @@ void led_blink()
 			  HAL_Delay(1000);
 		  }
 }
-
-}
+		
 ```
 
 ## Output  :
