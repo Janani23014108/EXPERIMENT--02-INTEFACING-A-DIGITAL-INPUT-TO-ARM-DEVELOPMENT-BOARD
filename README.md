@@ -59,46 +59,55 @@ The full form of an ARM is an advanced reduced instruction set computer (RISC) m
 
 ```
 #include "main.h"
-#include <stdbool.h>
-void push_button();
-bool button_status;
+#include "stdbool.h"
+bool button;
+void led_blink();
+
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+
+
 int main(void)
- 
+{
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+    while (1)
   {
-   HAL-Init();
-   System clock-config();
-   MX_GPIO-Init();
-   while(1){
-	  push_button();
-   }
+   
+led_blink();
+   
   }
   
+}
+void led_blink()
+{
+	button=HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_0);
+		  if(button==0)
+		  {
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+			  HAL_Delay(1000);
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+			  HAL_Delay(1000);
+		  }
+		  else
+		  {
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+			  HAL_Delay(1000);
+		  }
+}
 
-void push_button(){
-	button_status=HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_13);
-	if(button_status==1)
-	{
-		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
-		HAL_Delay(500);
-		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
-		HAL_Delay(500);
-	}
-	else
-	{
-		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
-		
-	}
 }
 ```
 
 ## Output  :
-![424301152-03352b7f-05f7-425d-93f3-2e9bd38eefb2](https://github.com/user-attachments/assets/5c0f5cfe-bb22-4264-9b90-6f95fd33a8e0)
 
-![424301214-9b703945-8fba-4d0f-b618-17071cefdbab](https://github.com/user-attachments/assets/eb8c073f-5d97-4dca-8bd8-db9c6daffeb2)
+## LED OFF
 
- 
-## layout of the circuit 
- ![424301151-d0b5ec4f-d772-42f3-b503-0f67241105cb](https://github.com/user-attachments/assets/940d5acb-6c75-426b-8d00-a0f72f5a6715)
+![437370335-b9bc7446-60d0-44dd-af8f-787cfca26752](https://github.com/user-attachments/assets/14c72530-91e2-41d5-9b9f-90ec606ce9e0)
+
+## LED ON
+![437370227-cac84f80-8451-4ec7-b925-d1c027974c97](https://github.com/user-attachments/assets/e8d8f0af-305f-4a02-ac19-a261b57328c6)
 
  
 ## Result :
